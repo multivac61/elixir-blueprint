@@ -2,12 +2,10 @@
   description = "Elixir template project with nix build system";
 
   inputs = {
-    nixpkgs.url = "github:baileyluTCD/nixpkgs/build-mix-copy-hidden";
-    systems.url = "github:nix-systems/default";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     blueprint.url = "github:numtide/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
-    blueprint.inputs.systems.follows = "systems";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";

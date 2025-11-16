@@ -5,9 +5,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": [
-          "systems"
-        ]
+        "systems": "systems"
       },
       "locked": {
         "lastModified": 1744632722,
@@ -25,16 +23,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1747524279,
-        "narHash": "sha256-MXGxpIDv/MW9MQ8u9gV7GHSm44gp0n89L8btJxUoDtc=",
-        "owner": "baileyluTCD",
+        "lastModified": 1763191728,
+        "narHash": "sha256-esRhOS0APE6k40Hs/jjReXg+rx+J5LkWw7cuWFKlwYA=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f1cb7effb5ffa16cdcecc757a751ac628872dd35",
+        "rev": "1d4c88323ac36805d09657d13a5273aea1b34f0c",
         "type": "github"
       },
       "original": {
-        "owner": "baileyluTCD",
-        "ref": "build-mix-copy-hidden",
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -43,7 +41,6 @@
       "inputs": {
         "blueprint": "blueprint",
         "nixpkgs": "nixpkgs",
-        "systems": "systems",
         "treefmt-nix": "treefmt-nix"
       }
     },
