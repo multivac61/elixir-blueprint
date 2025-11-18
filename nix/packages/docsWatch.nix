@@ -1,4 +1,4 @@
-{ pkgs, flake }:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "docsWatch";
 

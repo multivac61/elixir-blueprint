@@ -1,10 +1,9 @@
 {
   pkgs,
   flake,
-  system,
 }:
 let
-  mixNixDeps = pkgs.callPackages ../deps.nix { };
+  mixNixDeps = pkgs.callPackages "${flake}/deps.nix" { };
 in
 pkgs.beamPackages.mixRelease {
   inherit mixNixDeps;
@@ -12,17 +11,13 @@ pkgs.beamPackages.mixRelease {
   pname = "nix_phoenix_template";
   version = "0.1.0";
 
-  src = ../.;
+  src = flake;
 
   removeCookie = false;
   stripDebug = true;
 
   DATABASE_URL = "";
   SECRET_KEY_BASE = "";
-
-  nativeBuildInputs = [
-    flake.packages.${system}.appDependencies
-  ];
 
   postBuild = ''
     tailwind_path="$(mix do \

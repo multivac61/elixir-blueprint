@@ -1,26 +1,22 @@
 {
   pkgs,
   flake,
-  system,
+  perSystem,
   ...
 }:
-let
-  mixNixDeps = pkgs.callPackages ../../deps.nix { };
-in
 pkgs.beamPackages.mixRelease {
-  inherit mixNixDeps;
+  mixNixDeps = pkgs.callPackages "${flake}/deps.nix" { };
 
   pname = "is-formatted";
   version = "0.1.0";
 
-  src = ../..;
+  src = flake;
 
   DATABASE_URL = "";
   SECRET_KEY_BASE = "";
 
   nativeBuildInputs = [
-    flake.packages.${system}.appDependencies
-    flake.lib.${system}.treefmt.config.build.wrapper
+    perSystem.self.formatter
   ];
 
   doCheck = true;
