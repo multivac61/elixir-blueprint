@@ -1,13 +1,12 @@
-{ pkgs, flake }:
+{ pkgs, perSystem }:
 pkgs.writeShellApplication {
   name = "mprocs";
 
   runtimeInputs = with pkgs; [
     mprocs
     elixir
-    flake.packages.${system}.appDependencies
-    flake.packages.${system}.docsWatch
-    flake.packages.${system}.postgresDev
+    perSystem.self.docsWatch
+    perSystem.self.postgresDev
   ];
 
   text = ''
