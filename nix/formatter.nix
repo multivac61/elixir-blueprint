@@ -25,14 +25,5 @@ let
       ];
     };
   };
-  formatter = treefmtEval.config.build.wrapper;
-  check = treefmtEval.config.build.check flake;
 in
-formatter
-// {
-  passthru = formatter.passthru // {
-    tests = pkgs.lib.optionalAttrs (system == "x86_64-linux") {
-      inherit check;
-    };
-  };
-}
+treefmtEval.config.build.wrapper
