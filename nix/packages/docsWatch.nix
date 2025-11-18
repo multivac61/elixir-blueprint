@@ -4,7 +4,7 @@ pkgs.writeShellApplication {
 
   runtimeInputs = with pkgs; [
     watchexec
-    elixir
+    elixir_1_19
     nodePackages.browser-sync
   ];
 

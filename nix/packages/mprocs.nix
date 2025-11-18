@@ -4,7 +4,7 @@ pkgs.writeShellApplication {
 
   runtimeInputs = with pkgs; [
     mprocs
-    elixir
+    elixir_1_19
     perSystem.self.docsWatch
     perSystem.self.postgresDev
   ];
