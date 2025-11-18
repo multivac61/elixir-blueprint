@@ -1,19 +1,16 @@
 {
   pkgs,
   flake,
-  system,
+  perSystem,
   ...
 }:
-let
-  mixNixDeps = pkgs.callPackages ../../deps.nix { };
-in
 pkgs.beamPackages.mixRelease {
-  inherit mixNixDeps;
+  mixNixDeps = pkgs.callPackages "${flake}/deps.nix" { };
 
   pname = "nix_phoenix_template_test";
   version = "0.1.0";
 
-  src = ../../.;
+  src = flake;
 
   DATABASE_URL = "";
   SECRET_KEY_BASE = "";
@@ -21,8 +18,8 @@ pkgs.beamPackages.mixRelease {
   mixEnv = "test";
 
   nativeBuildInputs = [
-    flake.packages.${system}.appDependencies
-    flake.packages.${system}.postgresDev
+    perSystem.self.postgresDev
+    pkgs.postgresql
   ];
 
   doCheck = true;

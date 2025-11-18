@@ -1,10 +1,10 @@
-{ pkgs, flake }:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "docsWatch";
 
   runtimeInputs = with pkgs; [
     watchexec
-    elixir
+    elixir_1_19
     nodePackages.browser-sync
   ];
 

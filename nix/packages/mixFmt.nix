@@ -3,7 +3,7 @@ pkgs.writeShellApplication {
   name = "mix-fmt";
 
   runtimeInputs = with pkgs; [
-    elixir
+    elixir_1_19
   ];
 
   text = ''
