@@ -1,14 +1,46 @@
-{ pkgs }:
-pkgs.writeShellApplication {
-  name = "mix-fmt";
+{
+  pkgs,
+  flake,
+  ...
+}:
+pkgs.beamPackages.mixRelease {
+  mixNixDeps = pkgs.callPackages "${flake}/deps.nix" { };
 
-  runtimeInputs = with pkgs; [
-    elixir
-  ];
+  pname = "mix-fmt";
+  version = "0.1.0";
 
-  text = ''
+  src = flake;
+
+  DATABASE_URL = "";
+  SECRET_KEY_BASE = "";
+
+  doCheck = true;
+
+  preCheck = ''
+    export HOME=$TMPDIR
+    cat > $HOME/.gitconfig <<EOF
+    [user]
+      name = Nix
+      email = nix@localhost
+    [init]
+      defaultBranch = main
+    EOF
+  '';
+
+  checkPhase = ''
+    runHook preCheck
+
+    git init --quiet
+    git add .
+    git commit -m init --quiet
+
     exec mix "do" \
       app.config --no-deps-check --no-compile, \
       format
+
+    trap 'echo "Try running \"nix fmt\" to correct the formatting error."' ERR
+
+    git status --short
+    git --no-pager diff --exit-code
   '';
 }
