@@ -34,13 +34,22 @@ pkgs.beamPackages.mixRelease {
     git add .
     git commit -m init --quiet
 
-    exec mix "do" \
+    trap 'echo "Try running \"nix fmt\" to correct the formatting error."' ERR
+
+    mix "do" \
       app.config --no-deps-check --no-compile, \
       format
 
-    trap 'echo "Try running \"nix fmt\" to correct the formatting error."' ERR
-
     git status --short
     git --no-pager diff --exit-code
+
+    runHook postCheck
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out
+    echo "mix formatting check passed" > $out/result
+    runHook postInstall
   '';
 }
