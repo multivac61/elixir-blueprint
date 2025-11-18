@@ -19,6 +19,7 @@ pkgs.beamPackages.mixRelease {
 
   nativeBuildInputs = [
     perSystem.self.postgresDev
+    pkgs.postgresql
   ];
 
   doCheck = true;
