@@ -1,7 +1,6 @@
 {
   pkgs,
   flake,
-  perSystem,
   ...
 }:
 pkgs.beamPackages.mixRelease {
@@ -17,16 +16,19 @@ pkgs.beamPackages.mixRelease {
 
   mixEnv = "test";
 
-  nativeBuildInputs = [
-    perSystem.self.postgresDev
-    pkgs.postgresql
+  nativeBuildInputs = with pkgs; [
+    postgresql
+    postgresqlTestHook
   ];
+
+  postgresqlTestSetupSQL = ''
+    CREATE USER postgres WITH PASSWORD 'postgres' LOGIN CREATEDB SUPERUSER;
+    CREATE DATABASE nix_phoenix_template_test WITH OWNER postgres;
+  '';
 
   doCheck = true;
   checkPhase = ''
-    postgres-dev &
-
-    until pg_isready -h /tmp ; do sleep 1 ; done
+    runHook preCheck
 
     export HOME=$TMPDIR
 
@@ -36,5 +38,7 @@ pkgs.beamPackages.mixRelease {
       sobelow, \
       deps.audit, \
       test --no-deps-check
+
+    runHook postCheck
   '';
 }
